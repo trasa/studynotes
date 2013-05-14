@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+**/*/workspace.xml
+**/*/tasks.xml
+*.iws
+*.swp
+*.suo
+surefire-reports
