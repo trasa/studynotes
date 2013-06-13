@@ -53,7 +53,6 @@ public class SingleLinkedList<T> {
         }
     }
 
-
     @Override
     public String toString() {
         if (head == null) {

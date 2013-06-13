@@ -6,30 +6,33 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class TailPointerLinkedList<T> {
+public class DoubleLinkedList<T> {
 
-    protected Node<T> head;
-    protected Node<T> tail;
+    protected DoubleNode<T> head;
 
     public void addToHead(T value) {
-        Node<T> newNode = new Node<T>(value);
+        DoubleNode<T> newNode = new DoubleNode<T>(value);
         if (head == null) {
-            // empty list
-            head = tail = newNode;
+            head = newNode;
         } else {
             newNode.next = head;
+            head.prev = newNode;
             head = newNode;
         }
     }
 
     public void addToTail(T value) {
-        Node<T> newNode = new Node<T>(value);
-        if (tail == null) {
-            // empty list
-            head = tail = newNode;
+        DoubleNode<T> newNode = new DoubleNode<T>(value);
+
+        if (head == null) {
+            head = newNode;
         } else {
-            tail.next = newNode;
-            tail = newNode;
+            DoubleNode<T> cur = head;
+            while(cur.next != null) {
+                cur = cur.next;
+            }
+            cur.next = newNode;
+            newNode.prev = cur;
         }
     }
 
@@ -38,24 +41,22 @@ public class TailPointerLinkedList<T> {
             return;
         }
         if (head.value.equals(value)) {
-            if (tail == head) {
-                // we will have an empty list because head.next is null
-                tail = head.next;
-            }
             head = head.next;
+            if (head != null) {
+                head.prev = null;
+            }
             return;
         }
-        Node<T> cur = head.next;
-        Node<T> prev = head;
+        DoubleNode<T> cur = head;
         while(cur != null) {
             if (cur.value.equals(value)) {
-                prev.next = cur.next;
-                if (cur == tail) {
-                    tail = prev;
+                DoubleNode<T> next = cur.next;
+                cur.prev.next = next;
+                if (next != null) {
+                    next.prev = cur.prev;
                 }
                 return;
             }
-            prev = cur;
             cur = cur.next;
         }
     }
@@ -67,7 +68,7 @@ public class TailPointerLinkedList<T> {
             return "(empty list)";
         }
         List<T> values = newArrayList();
-        Node<T> n = head;
+        DoubleNode<T> n = head;
         while (n != null) {
             values.add(n.value);
             n = n.next;
