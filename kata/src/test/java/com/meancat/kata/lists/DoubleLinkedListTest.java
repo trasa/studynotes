@@ -1,5 +1,7 @@
-package com.meancat.kata;
+package com.meancat.kata.lists;
 
+import com.meancat.kata.DoubleNode;
+import com.meancat.kata.lists.DoubleLinkedList;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNull;

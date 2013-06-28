@@ -1,6 +1,7 @@
-package com.meancat.kata;
+package com.meancat.kata.lists;
 
 import com.google.common.base.Joiner;
+import com.meancat.kata.DoubleNode;
 
 import java.util.List;
 
