@@ -1,0 +1,5 @@
+Write a method that takes as input any integer.  Return that integer as an English language string.  Some examples:
+
+method(23)   => "twenty three"
+method(6)    => "six"
+method(2900) => "two thousand nine hundred"

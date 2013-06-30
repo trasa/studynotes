@@ -1,0 +1,22 @@
+﻿Connect Four is a common children's game.
+It comes with a set of game pieces.  Each game piece is either red or black.
+It also comes with a container which accepts these game pieces via one of seven adjacents slots in its top.  When a game piece is dropped into one of these slots, 
+it will fall until it either hits the bottom of the container or lands on top of another game piece.  The container is tall enough to hold six game pieces vertically 
+per slot.  All dropped game pieces are visible through the front of the container.
+
+The game is played by two players, each of whom is given all of the game pieces of a given color.  The players take turns dropping one of their game pieces into one 
+of the seven slots in the top of the container.  A pair of game pieces is said to be "connected" if they are adjacent to each other in the container either vertically 
+(both dropped into the same slot without any other game pieces in-between), horizontally (dropped into adjacent slots at equal heights), or diagonally (dropped into 
+adjacent slots with a height difference of one).  Each player's goal is to create a chain of four "connected" game pieces while preventing their opponent from 
+accomplishing the same.  The game ends either when one player has connected four of their game pieces, or when the container is full (all seven slots contain six game 
+pieces each).
+
+We want to build a library for Connect Four games.  Other developers will be tasked with building the user interface and artificial intelligence components.  Your task 
+is to build the data structures, interfaces, and unit tests for the core game logic.
+
+You will likely need, at the least, an interface, concrete class, and factory representing the container.  
+Your unit tests should only interact with the public interface(s).
+
+The library does NOT need to be thread-safe.
+We're interested primarily in the choices you make for modeling the game state, building the interface(s) to interact with it, and your unit test cases.
+ 

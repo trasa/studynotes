@@ -1,0 +1,24 @@
+There are four problems provided in this solution.  Only two of these are required:
+
+Required: MessageQueue
+Required: ConnectFour
+
+These two problems represent the kinds of bugs and tasks that you'll be expected to solve and perform routinely.
+Together, they shouldn't take you more than a few hours to complete.
+
+The remaining two problems are optional.  Think of them as bonus points or extra credit to be done only if you
+have extra time and enjoy solving these kinds of problems.  Leaving them unsolved will not count against you.
+
+Optional: EnglishNumbers
+Optional: DictionaryPath
+
+---
+
+To solve the MessageQueue problem, you should only need to modify MessageQueue.cpp.  Do not modify the interfaces or test harness.
+To solve the ConnectFour problem, you will need to create one or more files of your own.  You are free to modify that project however you wish.
+If you choose to solve the EnglishNumbers problem, you should only need to modify EnglishNumbers.cpp.
+If you choose to solve the DictionaryPath problem, you should only need to modify DictionaryPath.cpp.
+
+---
+
+Once completed, please zip and email the entire solution folder back to the person you received this test from.

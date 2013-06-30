@@ -1,0 +1,16 @@
+Assume you have a dictionary containing all the valid words in the English language.  Write a method that takes two strings as input, and returns an array of words 
+as output.  The first element in the array must be the first input string, the last must be the second input string.  Each element starting with the second must be
+a valid English word, produced by transforming the previous word using one of two operations.  The two operations are swap() and replace().  The swap() operation 
+swaps the position of two letters in the word, and the replace() operation replaces any single letter in the word with any other letter.  An example:
+
+method("trap", "salt") => ["trap", "prat", "plat", "slat", "salt"]
+
+In this case the method performed the following operations:
+
+  swap("trap", 0, 3)      => "prat"
+  replace("prat", 1, 'l') => "plat"
+  replace("plat", 0, 's') => "slat"
+  swap("slat", 1, 2)      => "salt"
+
+The task here is to generalize the method to work with arbitrary words as input.  You should not assume words will always be the same length, but obviously if they 
+are not then the input should be considered invalid.  You should also not assume there will always be a way to "connect" the two input words.

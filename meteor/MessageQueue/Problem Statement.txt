@@ -1,0 +1,5 @@
+Our system needs to send messages to an out-going message writer.  This output writer has poor serial performance characteristics, but it can be safely parallelized.
+So we've built a MessageQueue to facilitate sending multiple messages to the output writer in parallel.
+
+However, there's a problem with our MessageQueue: it crashes whenever we try to use it.  Your task is to find out why it crashes and fix it while still meeting the 
+original goal of parallelizing the message output.
