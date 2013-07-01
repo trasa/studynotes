@@ -1,0 +1,7 @@
+bin/
+obj/
+Debug/
+*.vcxproj.user
+*.opensdf
+*.sdf
+ipch/
