@@ -17,9 +17,16 @@ namespace ConnectFour.Tests
 
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void AddPiece_NegativeColumn()
+        {
+            container.AddPiece(PieceColor.Black, -1);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void AddPiece_InvalidColumn()
         {
-            container.AddPiece(PieceColor.Black, (uint) container.ColumnCount);
+            container.AddPiece(PieceColor.Black, container.ColumnCount);
         }
 
         [Test]
@@ -98,16 +105,16 @@ namespace ConnectFour.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void GetPiece_IllegalColumn()
         {
-            container.GetPiece((uint) container.ColumnCount, 0);
+            container.GetPiece(container.ColumnCount, 0);
         }
 
         [Test]
         public void IsFull()
         {
-            for (uint col = 0; col < container.ColumnCount; col++)
+            for (int col = 0; col < container.ColumnCount; col++)
             {
                 Assert.False(container.IsContainerFull);
-                for (uint row = 0; row < ContainerColumn.MaxHeight; row++)
+                for (int row = 0; row < ContainerColumn.MaxHeight; row++)
                 {
                     container.AddPiece(PieceColor.Black, col);
                 }                
@@ -129,8 +136,8 @@ namespace ConnectFour.Tests
         [Test]
         public void GetRight()
         {
-            container.AddPiece(PieceColor.Black, (uint) (container.ColumnCount - 2));  // 5
-            container.AddPiece(PieceColor.Red, (uint)(container.ColumnCount - 1)); // 6
+            container.AddPiece(PieceColor.Black,  container.ColumnCount - 2);  // 5
+            container.AddPiece(PieceColor.Red, container.ColumnCount - 1); // 6
 
             // to the right of this is the edge
             Assert.AreEqual(0, container.GetPieceCountRight(PieceColor.Red, container.ColumnCount - 1, 0));
@@ -138,6 +145,33 @@ namespace ConnectFour.Tests
             Assert.AreEqual(0, container.GetPieceCountRight(PieceColor.Black, container.ColumnCount - 2, 0));
             // to the right of this is a red
             Assert.AreEqual(1, container.GetPieceCountRight(PieceColor.Red, container.ColumnCount - 2, 0));
+        }
+
+        [Test]
+        public void GetUp()
+        {
+            container.AddPiece(PieceColor.Red, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            
+            Assert.AreEqual(5, container.GetPieceCountUp(PieceColor.Black, 0, 0));
+
+        }
+
+        [Test]
+        public void GetDown()
+        {
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Red, 0);
+
+            Assert.AreEqual(5, container.GetPieceCountDown(PieceColor.Black, 0, 5));
         }
         
     }

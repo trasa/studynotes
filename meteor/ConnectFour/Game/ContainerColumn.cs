@@ -25,29 +25,29 @@ namespace ConnectFour.Game
             get { return Count == MaxHeight; }
         }
 
-        public uint AddPiece(PieceColor color)
+        public int AddPiece(PieceColor color)
         {
             if (IsFull)
             {
                 throw new IllegalPlacementException("There is no more room in this row for another piece.");
             }
             AddLast(color);
-            return (uint) (Count - 1);
+            return Count - 1;
         }
 
-        public PieceColor GetPiece(uint row)
+        public PieceColor GetPiece(int row)
         {
             VerifyRow(row);
             if (row >= Count)
             {
                 return PieceColor.None;
             }
-            return this.ElementAt((int) row);
+            return this.ElementAt(row);
         }
 
-        private void VerifyRow(uint row)
+        private void VerifyRow(int row)
         {
-            if (row >= MaxHeight)
+            if (row < 0 || row >= MaxHeight)
             {
                 throw new ArgumentOutOfRangeException("row", row, "Must be between 0 and " + MaxHeight);
             }

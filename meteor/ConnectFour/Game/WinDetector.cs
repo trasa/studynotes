@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace ConnectFour.Game
 {
     /// <summary>
@@ -13,10 +9,10 @@ namespace ConnectFour.Game
     {
         private readonly Container container;
         private readonly PieceColor color;
-        private readonly uint column;
-        private readonly uint row;
+        private readonly int column;
+        private readonly int row;
 
-        public WinDetector(Container container, PieceColor color, uint column, uint row)
+        public WinDetector(Container container, PieceColor color, int column, int row)
         {
             this.container = container;
             this.color = color;
@@ -33,8 +29,8 @@ namespace ConnectFour.Game
         {
             get
             {
-                return container.GetPieceCountNegativeUp(color, (int) column, (int) row) +
-                       container.GetPieceCountNegativeDown(color, (int) column, (int) row) + 1 >= 4;
+                return container.GetPieceCountNegativeUp(color, column, row) +
+                       container.GetPieceCountNegativeDown(color, column, row) + 1 >= 4;
             }
         }
 
@@ -42,8 +38,8 @@ namespace ConnectFour.Game
         {
             get
             {
-                return container.GetPieceCountPositiveUp(color, (int) column, (int) row) +
-                       container.GetPieceCountPositiveDown(color, (int) column, (int) row) + 1 >= 4;
+                return container.GetPieceCountPositiveUp(color, column, row) +
+                       container.GetPieceCountPositiveDown(color, column, row) + 1 >= 4;
             }
         }
 
@@ -51,8 +47,8 @@ namespace ConnectFour.Game
         {
             get
             {
-                return container.GetPieceCountUp(color, column, (int) row) +
-                       container.GetPieceCountDown(color, column, (int) row) + 1 >= 4;
+                return container.GetPieceCountUp(color, column, row) +
+                       container.GetPieceCountDown(color, column, row) + 1 >= 4;
             }
         }
 
@@ -60,8 +56,8 @@ namespace ConnectFour.Game
         {
             get
             {
-                return container.GetPieceCountLeft(color, (int) column, row) +
-                       container.GetPieceCountRight(color, (int) column, row) + 1 >= 4;
+                return container.GetPieceCountLeft(color, column, row) +
+                       container.GetPieceCountRight(color, column, row) + 1 >= 4;
             }
         }
     }

@@ -47,7 +47,7 @@ namespace ConnectFour.Game
         /// </summary>
         /// <param name="color">piece that we are adding</param>
         /// <param name="column">column to add the piece to</param>
-        public bool AddPiece(PieceColor color, uint column)
+        public bool AddPiece(PieceColor color, int column)
         {
             VerifyColumn(column);
             if (color == PieceColor.None)
@@ -59,12 +59,12 @@ namespace ConnectFour.Game
             {
                 throw new IllegalPlacementException("Can't put a piece here, this column is full.");
             }
-            uint row = col.AddPiece(color);
+            int row = col.AddPiece(color);
 
             return new WinDetector(this, color, column, row).IsWinner;
         }
 
-        public bool IsColumnFull(uint column)
+        public bool IsColumnFull(int column)
         {
             VerifyColumn(column);
             return columns[column].IsFull;
@@ -78,18 +78,18 @@ namespace ConnectFour.Game
             }
         }
 
-        public PieceColor GetPiece(uint column, uint row)
+        public PieceColor GetPiece(int column, int row)
         {
             VerifyColumn(column);
             
             return columns[column].GetPiece(row);
         }
 
-        private void VerifyColumn(uint column)
+        private void VerifyColumn(int column)
         {
-            if (column >= columns.Length)
+            if (column < 0 || column >= columns.Length)
             {
-                throw new ArgumentOutOfRangeException("column", column, "Must be between 0 and " + columns.Length);
+                throw new ArgumentOutOfRangeException("column", column, "Must be between 0 and " + (columns.Length - 1));
             }
         }
 
@@ -104,7 +104,7 @@ namespace ConnectFour.Game
         /// <param name="column">column to start looking at</param>
         /// <param name="row">the row we're checking out</param>
         /// <returns>number of pieces to the left of start that are the same color</returns>
-        public int GetPieceCountLeft(PieceColor color, int column, uint row)
+        public int GetPieceCountLeft(PieceColor color, int column, int row)
         {
             int columnToCheck = column - 1;
             if (columnToCheck < 0 || columns[columnToCheck].GetPiece(row) != color)
@@ -126,7 +126,7 @@ namespace ConnectFour.Game
         /// <param name="column">column to start looking at</param>
         /// <param name="row">the row we're checking out</param>
         /// <returns>number of pieces to the right of start that are the same color</returns>
-        public int GetPieceCountRight(PieceColor color, int column, uint row)
+        public int GetPieceCountRight(PieceColor color, int column, int row)
         {
             int columnToCheck = column + 1;
             if (columnToCheck == columns.Length || columns[columnToCheck].GetPiece(row) != color)
@@ -145,10 +145,10 @@ namespace ConnectFour.Game
         /// <param name="column">column we're checking out</param>
         /// <param name="row">row to start looking at</param>
         /// <returns>number of pieces above here that are the same color</returns>
-        public int GetPieceCountUp(PieceColor color, uint column, int row)
+        public int GetPieceCountUp(PieceColor color, int column, int row)
         {
             int rowToCheck = row + 1;
-            if (rowToCheck == ContainerColumn.MaxHeight || columns[column].GetPiece((uint) rowToCheck) != color)
+            if (rowToCheck == ContainerColumn.MaxHeight || columns[column].GetPiece(rowToCheck) != color)
             {
                 // the top or the wrong piece
                 return 0;
@@ -164,10 +164,10 @@ namespace ConnectFour.Game
         /// <param name="column">column we're checking out</param>
         /// <param name="row">row to start looking at</param>
         /// <returns>number of pieces below here that are the same color</returns>
-        public int GetPieceCountDown(PieceColor color, uint column, int row)
+        public int GetPieceCountDown(PieceColor color, int column, int row)
         {
             int rowToCheck = row - 1;
-            if (rowToCheck < 0 || columns[column].GetPiece((uint)rowToCheck) != color)
+            if (rowToCheck < 0 || columns[column].GetPiece(rowToCheck) != color)
             {
                 // the bottom or the wrong piece
                 return 0;
@@ -190,7 +190,7 @@ namespace ConnectFour.Game
 
             if (rowToCheck == ContainerColumn.MaxHeight ||
                 columnToCheck == ColumnCount ||
-                columns[columnToCheck].GetPiece((uint) rowToCheck) != color)
+                columns[columnToCheck].GetPiece(rowToCheck) != color)
             {
                 // not it.
                 return 0;
@@ -213,7 +213,7 @@ namespace ConnectFour.Game
 
             if (rowToCheck < 0 ||
                 columnToCheck < 0 ||
-                columns[columnToCheck].GetPiece((uint)rowToCheck) != color)
+                columns[columnToCheck].GetPiece(rowToCheck) != color)
             {
                 // not it.
                 return 0;
@@ -236,7 +236,7 @@ namespace ConnectFour.Game
 
             if (rowToCheck == ContainerColumn.MaxHeight ||
                 columnToCheck < 0 ||
-                columns[columnToCheck].GetPiece((uint)rowToCheck) != color)
+                columns[columnToCheck].GetPiece(rowToCheck) != color)
             {
                 // not it.
                 return 0;
@@ -260,7 +260,7 @@ namespace ConnectFour.Game
 
             if (rowToCheck < 0 ||
                 columnToCheck == ColumnCount ||
-                columns[columnToCheck].GetPiece((uint)rowToCheck) != color)
+                columns[columnToCheck].GetPiece(rowToCheck) != color)
             {
                 // not it.
                 return 0;

@@ -36,9 +36,15 @@ namespace ConnectFour.Tests
         }
 
         [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetPiece_Negative()
+        {
+            column.GetPiece(-1);
+        }
+        [Test]
         public void GetPiece_Empty()
         {
-            for (uint i = 0; i < ContainerColumn.MaxHeight; i++)
+            for (int i = 0; i < ContainerColumn.MaxHeight; i++)
             {
                 Assert.AreEqual(PieceColor.None, column.GetPiece(i));
             }
