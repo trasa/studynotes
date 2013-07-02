@@ -8,7 +8,9 @@ namespace ConnectFour.Game
     /// A Column of Pieces in the Container.
     /// 
     /// This behaves much like a Stack, except that we can examine
-    /// all parts of the Column.
+    /// all parts of the Column.  The downside of the implementation
+    /// is that many of these operations will be O(n) instead of
+    /// O(1).
     /// </summary>
     public class ContainerColumn : LinkedList<PieceColor>
     {
@@ -23,13 +25,14 @@ namespace ConnectFour.Game
             get { return Count == MaxHeight; }
         }
 
-        public void AddPiece(PieceColor color)
+        public uint AddPiece(PieceColor color)
         {
             if (IsFull)
             {
                 throw new IllegalPlacementException("There is no more room in this row for another piece.");
             }
             AddLast(color);
+            return (uint) (Count - 1);
         }
 
         public PieceColor GetPiece(uint row)

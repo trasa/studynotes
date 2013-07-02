@@ -114,5 +114,31 @@ namespace ConnectFour.Tests
             }
             Assert.True(container.IsContainerFull);            
         }
+
+        [Test]
+        public void GetLeft()
+        {
+            container.AddPiece(PieceColor.Black, 0);
+            container.AddPiece(PieceColor.Red, 1);
+            // this sums the pieces to the left, not including the space we're starting at.
+            Assert.AreEqual(0, container.GetPieceCountLeft(PieceColor.Red, 1, 0));
+            Assert.AreEqual(0, container.GetPieceCountLeft(PieceColor.Black, 0, 0));
+            Assert.AreEqual(1, container.GetPieceCountLeft(PieceColor.Red, 2, 0));
+        }
+
+        [Test]
+        public void GetRight()
+        {
+            container.AddPiece(PieceColor.Black, (uint) (container.ColumnCount - 2));  // 5
+            container.AddPiece(PieceColor.Red, (uint)(container.ColumnCount - 1)); // 6
+
+            // to the right of this is the edge
+            Assert.AreEqual(0, container.GetPieceCountRight(PieceColor.Red, container.ColumnCount - 1, 0));
+            // to the right of this is a red
+            Assert.AreEqual(0, container.GetPieceCountRight(PieceColor.Black, container.ColumnCount - 2, 0));
+            // to the right of this is a red
+            Assert.AreEqual(1, container.GetPieceCountRight(PieceColor.Red, container.ColumnCount - 2, 0));
+        }
+        
     }
 }
