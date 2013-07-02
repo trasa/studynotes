@@ -6,13 +6,8 @@ namespace ConnectFour.Game
 {
     /// <summary>
     /// A Column of Pieces in the Container.
-    /// 
-    /// This behaves much like a Stack, except that we can examine
-    /// all parts of the Column.  The downside of the implementation
-    /// is that many of these operations will be O(n) instead of
-    /// O(1).
     /// </summary>
-    public class ContainerColumn : LinkedList<PieceColor>
+    public class ContainerColumn : List<PieceColor>
     {
         /// <summary>
         /// The number of rows in the column.
@@ -31,7 +26,10 @@ namespace ConnectFour.Game
             {
                 throw new IllegalPlacementException("There is no more room in this row for another piece.");
             }
-            AddLast(color);
+            // this adds to the end of the list, keeping our
+            // structure where smaller numbers == the bottom of the 
+            // column.
+            Add(color);
             return Count - 1;
         }
 
@@ -42,6 +40,7 @@ namespace ConnectFour.Game
             {
                 return PieceColor.None;
             }
+            // for things of IList this is O(1)
             return this.ElementAt(row);
         }
 

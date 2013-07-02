@@ -1,4 +1,5 @@
-﻿using ConnectFour.Game;
+﻿using System;
+using ConnectFour.Game;
 using NUnit.Framework;
 
 namespace ConnectFour.Tests
@@ -127,7 +128,7 @@ namespace ConnectFour.Tests
 
             match.AddPiece(6);
 
-//            Console.Out.WriteLine(match.Container.ToString());
+            Console.Out.WriteLine(match.Container.ToString());
             Assert.IsTrue(match.GameOver);
             Assert.AreEqual(PieceColor.None, match.Winner);
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace ConnectFour.Game
 {
     /// <summary>
@@ -13,17 +9,15 @@ namespace ConnectFour.Game
     /// </summary>
     public class Match
     {
-        private readonly Container container = new Container();
-
-        // TODO remove me
-        public Container Container { get { return container; } }
-
         public Match()
         {
+            Container = new Container();
             // Black goes first. (Smoke before Fire...)
             CurrentPlayer = PieceColor.Black;
             Winner = PieceColor.None;
         }
+
+        public Container Container { get; private set; }
 
         public PieceColor CurrentPlayer { get; private set; }
 
@@ -31,19 +25,26 @@ namespace ConnectFour.Game
 
         public bool GameOver { get; private set; }
 
+        /// <summary>
+        /// The Current Player sets a piece into the game board.
+        /// 
+        /// This swaps the Current Player and checks to see if the
+        /// game is over or not.
+        /// </summary>
+        /// <param name="column">The column the piece goes into.</param>
         public void AddPiece(int column)
         {
             if (GameOver)
             {
                 throw new IllegalPlacementException("The game is over, no more placements allowed.");
             }
-            if (container.AddPiece(CurrentPlayer, column))
+            if (Container.AddPiece(CurrentPlayer, column))
             {
                 // CurrentPlayer wins!
                 Winner = CurrentPlayer;
                 GameOver = true;
             } 
-            else if (container.IsContainerFull)
+            else if (Container.IsContainerFull)
             {
                 // it's a tie
                 Winner = PieceColor.None;
