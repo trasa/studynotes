@@ -24,7 +24,7 @@ namespace ConnectFour.GameApi
             get { return Count == MaxHeight; }
         }
 
-        public void Push(PieceColor color)
+        public void AddPiece(PieceColor color)
         {
             if (IsFull)
             {

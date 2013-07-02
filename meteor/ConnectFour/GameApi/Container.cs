@@ -52,7 +52,7 @@ namespace ConnectFour.GameApi
             {
                 throw new IllegalPlacementException("Can't put a piece here, this column is full.");
             }
-            col.Push(color);
+            col.AddPiece(color);
         }
 
         public bool IsColumnFull(uint column)

@@ -23,11 +23,11 @@ namespace ConnectFour.Tests
         {
             for (int i = 0; i < ContainerColumn.MaxHeight - 1; i++)
             {
-                column.Push(PieceColor.Red);
+                column.AddPiece(PieceColor.Red);
                 Assert.False(column.IsFull, "not full yet");
             }
                 
-            column.Push(PieceColor.Red);
+            column.AddPiece(PieceColor.Red);
             Assert.True(column.IsFull, "its full now");
         }
 
@@ -50,12 +50,12 @@ namespace ConnectFour.Tests
         [Test]
         public void GetPieces()
         {
-            column.Push(PieceColor.Red); 
-            column.Push(PieceColor.Black); 
-            column.Push(PieceColor.Red); 
-            column.Push(PieceColor.Black); 
-            column.Push(PieceColor.Red); 
-            column.Push(PieceColor.Black);
+            column.AddPiece(PieceColor.Red); 
+            column.AddPiece(PieceColor.Black); 
+            column.AddPiece(PieceColor.Red); 
+            column.AddPiece(PieceColor.Black); 
+            column.AddPiece(PieceColor.Red); 
+            column.AddPiece(PieceColor.Black);
 
             Assert.AreEqual(PieceColor.Red, column.GetPiece(0));
             Assert.AreEqual(PieceColor.Black, column.GetPiece(1));
