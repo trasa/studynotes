@@ -2,6 +2,7 @@ bin/
 obj/
 Debug/
 *.vcxproj.user
+*.DotSettings.user
 *.opensdf
 *.sdf
 ipch/
