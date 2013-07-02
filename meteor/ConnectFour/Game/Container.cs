@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace ConnectFour.Game
 {
@@ -266,6 +267,33 @@ namespace ConnectFour.Game
                 return 0;
             }
             return 1 + GetPieceCountNegativeDown(color, columnToCheck, rowToCheck);
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            for (int row = ContainerColumn.MaxHeight - 1; row >= 0; row--)
+            {                
+                for (int col = 0; col < ColumnCount; col++)
+                {
+                    PieceColor piece = columns[col].GetPiece(row);
+                    switch (piece)
+                    {
+                        case PieceColor.None:
+                            sb.Append(" ");
+                            break;
+                        case PieceColor.Black:
+                            sb.Append("B");
+                            break;
+                        case PieceColor.Red:
+                            sb.Append("R");
+                            break;
+                    }
+                    sb.Append(" ");
+                }
+                sb.Append("\n");
+            }
+            return sb.ToString();
         }
     }
 }
