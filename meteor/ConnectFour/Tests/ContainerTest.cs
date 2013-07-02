@@ -100,5 +100,19 @@ namespace ConnectFour.Tests
         {
             container.GetPiece((uint) container.ColumnCount, 0);
         }
+
+        [Test]
+        public void IsFull()
+        {
+            for (uint col = 0; col < container.ColumnCount; col++)
+            {
+                Assert.False(container.IsContainerFull);
+                for (uint row = 0; row < ContainerColumn.MaxHeight; row++)
+                {
+                    container.AddPiece(PieceColor.Black, col);
+                }                
+            }
+            Assert.True(container.IsContainerFull);            
+        }
     }
 }

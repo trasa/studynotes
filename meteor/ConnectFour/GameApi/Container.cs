@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ConnectFour.GameApi
 {
@@ -57,6 +58,14 @@ namespace ConnectFour.GameApi
         {
             VerifyColumn(column);
             return columns[column].IsFull;
+        }
+
+        public bool IsContainerFull
+        {
+            get
+            {
+                return columns.All(c => c.IsFull);
+            }
         }
 
         public PieceColor GetPiece(uint column, uint row)
