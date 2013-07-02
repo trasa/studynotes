@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace ConnectFour.GameApi
 {
@@ -75,6 +73,5 @@ namespace ConnectFour.GameApi
                 throw new ArgumentOutOfRangeException("column", column, "Must be between 0 and " + columns.Length);
             }
         }
-        
     }
 }
