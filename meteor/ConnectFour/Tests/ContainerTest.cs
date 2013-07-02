@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ConnectFour.GameApi;
 using NUnit.Framework;
 
@@ -12,7 +9,6 @@ namespace ConnectFour.Tests
     {
         private Container container;
 
-
         [SetUp]
         public void SetUp()
         {
@@ -21,23 +17,23 @@ namespace ConnectFour.Tests
 
         [Test]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void AddPiece_InvalidColumn_Low()
+        public void AddPiece_InvalidColumn()
         {
-            container.AddPiece(PieceColor.Black, -1);
+            container.AddPiece(PieceColor.Black, (uint) container.ColumnCount);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void AddPiece_InvalidColumn_High()
+        [ExpectedException(typeof(IllegalPlacementException))]
+        public void AddNonePiece()
         {
-            container.AddPiece(PieceColor.Black, 10);
+            container.AddPiece(PieceColor.None, 0);
         }
 
         [Test]
         public void AddPiecesUntilFull()
         {
             // add legitimate pieces for first 4 spaces
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < ContainerColumn.MaxHeight - 1; i++)
             {
                 container.AddPiece(PieceColor.Black, 0);
                 Assert.False(container.IsColumnFull(0), "column should not be full");
@@ -57,6 +53,52 @@ namespace ConnectFour.Tests
                 failed = true;
             }
             Assert.True(failed, "should have gotten IllegalPlacementException");
+        }
+
+        [Test]
+        public void GetPiece_EmptyColumn()
+        {
+            PieceColor piece = container.GetPiece(0, 0);
+            Assert.AreEqual(PieceColor.None, piece);
+        }
+
+        [Test]
+        public void GetPiece_NotEmpty()
+        {
+            container.AddPiece(PieceColor.Red, 0);
+            Assert.AreEqual(PieceColor.Red, container.GetPiece(0, 0));
+        }
+
+        [Test]
+        public void GetPiece_Stack()
+        {
+            container.AddPiece(PieceColor.Red, 0); //0
+            container.AddPiece(PieceColor.Black, 0);//1
+            container.AddPiece(PieceColor.Red, 0);//2
+            container.AddPiece(PieceColor.Black, 0);//3
+            container.AddPiece(PieceColor.Red, 0);//4
+            container.AddPiece(PieceColor.Black, 0);//5
+
+            Assert.AreEqual(PieceColor.Red, container.GetPiece(0, 0));
+            Assert.AreEqual(PieceColor.Black, container.GetPiece(0, 1));
+            Assert.AreEqual(PieceColor.Red, container.GetPiece(0, 2));
+            Assert.AreEqual(PieceColor.Black, container.GetPiece(0, 3));
+            Assert.AreEqual(PieceColor.Red, container.GetPiece(0, 4));
+            Assert.AreEqual(PieceColor.Black, container.GetPiece(0, 5));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetPiece_IllegalRow()
+        {
+            container.GetPiece(0, ContainerColumn.MaxHeight);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void GetPiece_IllegalColumn()
+        {
+            container.GetPiece((uint) container.ColumnCount, 0);
         }
     }
 }

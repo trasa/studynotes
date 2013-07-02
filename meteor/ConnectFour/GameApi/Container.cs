@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ConnectFour.GameApi
@@ -7,44 +8,73 @@ namespace ConnectFour.GameApi
     /// The main game board of a ConnectFour game.
     /// 
     /// The Container has 7 columns, each are 6 spaces deep.
+    /// The board is arranged such:
+    ///     0 1 2 3 4 5 6  (columns)
+    ///   5 . . . . . . . 
+    ///   4 . . . . . . . 
+    ///   3 . . . . . . . 
+    ///   2 . . . . . . . 
+    ///   1 . . . . . . . 
+    ///   0 . . . . . . . 
+    /// (rows)
     /// 
+    /// So that when a piece is dropped into a column, it falls 
+    /// to the lowest numbered row available.
     /// </summary>
     public class Container
     {
-        private const int MaxColumnDepth = 6;
-
-        private readonly Stack<PieceColor>[] columns = new Stack<PieceColor>[]
+        // the columns of the game board:
+        private readonly ContainerColumn[] columns = new ContainerColumn[]
             {
-                new Stack<PieceColor>(6), 
-                new Stack<PieceColor>(6), 
-                new Stack<PieceColor>(6), 
-                new Stack<PieceColor>(6), 
-                new Stack<PieceColor>(6), 
-                new Stack<PieceColor>(6)
+                new ContainerColumn(), 
+                new ContainerColumn(), 
+                new ContainerColumn(), 
+                new ContainerColumn(), 
+                new ContainerColumn(), 
+                new ContainerColumn(),
+                new ContainerColumn()
             };
- 
-        public void AddPiece(PieceColor color, int column)
+
+        /// <summary>
+        /// The number of columns in the container.
+        /// </summary>
+        public int ColumnCount { get { return columns.Length; } }
+
+        public void AddPiece(PieceColor color, uint column)
         {
-            if (column < 0 || column > columns.Length)
+            VerifyColumn(column);
+            if (color == PieceColor.None)
             {
-                throw new ArgumentOutOfRangeException("column", column, "Must be between 0 and " + columns.Length);
+                throw new IllegalPlacementException("Can't put a 'none' piece in the container.");
             }
-            if (IsColumnFull(column))
+            ContainerColumn col = columns[column];
+            if (col.IsFull)
             {
                 throw new IllegalPlacementException("Can't put a piece here, this column is full.");
             }
-
-            Stack<PieceColor> col = columns[column];
             col.Push(color);
         }
 
-        public bool IsColumnFull(int column)
+        public bool IsColumnFull(uint column)
         {
-            if (column < 0 || column > columns.Length)
+            VerifyColumn(column);
+            return columns[column].IsFull;
+        }
+
+        public PieceColor GetPiece(uint column, uint row)
+        {
+            VerifyColumn(column);
+            
+            return columns[column].GetPiece(row);
+        }
+
+        private void VerifyColumn(uint column)
+        {
+            if (column >= columns.Length)
             {
                 throw new ArgumentOutOfRangeException("column", column, "Must be between 0 and " + columns.Length);
             }
-            return columns[column].Count == MaxColumnDepth;
         }
+        
     }
 }
