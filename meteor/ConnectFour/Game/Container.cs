@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace ConnectFour.GameApi
+namespace ConnectFour.Game
 {
     /// <summary>
     /// The main game board of a ConnectFour game.

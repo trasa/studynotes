@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ConnectFour.GameApi
+namespace ConnectFour.Game
 {
     /// <summary>
     /// An attempt was made to put a piece somewhere it didn't belong.

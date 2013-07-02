@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameApi\Container.cs" />
-    <Compile Include="GameApi\ContainerColumn.cs" />
-    <Compile Include="GameApi\IllegalPlacementException.cs" />
-    <Compile Include="GameApi\PieceColor.cs" />
+    <Compile Include="Game\Container.cs" />
+    <Compile Include="Game\ContainerColumn.cs" />
+    <Compile Include="Game\IllegalPlacementException.cs" />
+    <Compile Include="Game\PieceColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ContainerColumnTest.cs" />
     <Compile Include="Tests\ContainerTest.cs" />

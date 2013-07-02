@@ -1,5 +1,5 @@
 ﻿using System;
-using ConnectFour.GameApi;
+using ConnectFour.Game;
 using NUnit.Framework;
 
 namespace ConnectFour.Tests

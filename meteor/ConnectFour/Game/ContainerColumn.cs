@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConnectFour.GameApi
+namespace ConnectFour.Game
 {
     /// <summary>
     /// A Column of Pieces in the Container.

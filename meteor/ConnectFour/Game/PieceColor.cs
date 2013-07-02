@@ -1,5 +1,5 @@
 ﻿
-namespace ConnectFour.GameApi
+namespace ConnectFour.Game
 {
     public enum PieceColor
     {
