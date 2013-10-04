@@ -26,6 +26,12 @@ namespace ConnectFour.Test
             return new T();
         }
 
+        public string Serialize<T>(T body, string playerId) where T : ClientMessage<T>
+        {
+            ClientMessage<T> msg = new ClientMessage<T>();
+            msg.body = body;
+        }
+
         [Test]
         public void DoGeneric()
         {
@@ -44,5 +50,11 @@ namespace ConnectFour.Test
             method = method.MakeGenericMethod(new[] {typeof(Generify)});
             method.Invoke(this, new object[] {"blah"});
         }
+    }
+
+
+    public class ClientMessage<T> 
+    {
+        public T body;
     }
 }
